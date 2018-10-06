@@ -1,7 +1,16 @@
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://repository-achartengine.forge.cloudbees.com/snapshot/"
+    }
+}
+
 dependencies {
     implementation project(':FtcRobotController')
     implementation (name: 'RobotCore-release', ext: 'aar')
     implementation (name: 'Hardware-release', ext: 'aar')
     implementation (name: 'FtcCommon-release', ext: 'aar')
     implementation (name:'WirelessP2p-release', ext:'aar')
+    implementation (group: 'org.apache.commons', name: 'commons-math3', version: '3.0')
 }
