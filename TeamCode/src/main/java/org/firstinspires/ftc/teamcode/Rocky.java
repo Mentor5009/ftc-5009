@@ -85,7 +85,7 @@ public class Rocky extends LinearOpMode {
             robot.rightDrive.setPower(right);
 
             if(gamepad1.b) robot.marker.setPosition(0.2);
-            else robot.marker.setPosition(0.6);
+            else robot.marker.setPosition(0.61);
 
             telemetry.addData("left",  "%.2f", left);
             telemetry.addData("right", "%.2f", right);

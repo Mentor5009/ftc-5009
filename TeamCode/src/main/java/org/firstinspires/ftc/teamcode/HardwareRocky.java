@@ -57,6 +57,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 public class HardwareRocky
 {
+
+    final Length wheelDiamater = new Length(4, Length.Unit.INCH);
     /* Public OpMode members. */
     public DcMotorEx leftDrive   = null;
     public DcMotorEx  rightDrive  = null;
@@ -93,5 +95,24 @@ public class HardwareRocky
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
+    void resetEncoders() {
+        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
+    public void move(Length d, double power) {
+        double Tpr = leftDrive.getMotorType().getTicksPerRev();
+        double ticks = d.in(Length.Unit.INCH)/wheelDiamater.in(Length.Unit.INCH) * Tpr / (2*Math.PI);
+        resetEncoders();
+        leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftDrive.setPower(power);
+        rightDrive.setPower(power);
+        leftDrive.setTargetPosition((int)ticks);
+        rightDrive.setTargetPosition((int)ticks);
+        while(leftDrive.isBusy() || rightDrive.isBusy()) Thread.yield();
+    }
+}
 
