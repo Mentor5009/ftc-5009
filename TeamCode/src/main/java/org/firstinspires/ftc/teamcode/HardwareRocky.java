@@ -83,6 +83,7 @@ public class HardwareRocky
         // Define and Initialize Motors
         leftDrive = (DcMotorEx) hwMap.get(DcMotorEx.class, "leftDrive");
         rightDrive = (DcMotorEx) hwMap.get(DcMotorEx.class, "rightDrive");
+        marker = hwMap.get(Servo.class, "marker servo");
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
@@ -93,6 +94,10 @@ public class HardwareRocky
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+        //set position of servos
+        marker.setPosition(.7);
     }
 
     void resetEncoders() {
