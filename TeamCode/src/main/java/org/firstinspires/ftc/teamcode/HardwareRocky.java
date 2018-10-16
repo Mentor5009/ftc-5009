@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.support.annotation.MainThread;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -83,7 +85,6 @@ public class HardwareRocky
         // Define and Initialize Motors
         leftDrive = (DcMotorEx) hwMap.get(DcMotorEx.class, "leftDrive");
         rightDrive = (DcMotorEx) hwMap.get(DcMotorEx.class, "rightDrive");
-        marker = hwMap.get(Servo.class, "marker servo");
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
@@ -97,7 +98,7 @@ public class HardwareRocky
 
 
         //set position of servos
-        marker.setPosition(.7);
+        marker.setPosition(.6);
     }
 
     void resetEncoders() {
@@ -118,6 +119,21 @@ public class HardwareRocky
         leftDrive.setTargetPosition((int)ticks);
         rightDrive.setTargetPosition((int)ticks);
         while(leftDrive.isBusy() || rightDrive.isBusy()) Thread.yield();
+    }
+
+    public void pivot (){
+
+        double angle = 45;
+
+        double robotwidth = 16.5;
+
+        double ticks = ((angle/360)*(robotwidth/2)*Math.PI*1440)/(wheelDiamater.in(Length.Unit.INCH)*Math.PI);
+
+        leftDrive.setTargetPosition((int)ticks);
+        rightDrive
+
+
+
     }
 }
 
