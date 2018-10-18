@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.ServoImpl;
@@ -124,15 +125,17 @@ public class HardwareRocky
     public void pivot (){
 
         double angle = 45;
-
         double robotwidth = 16.5;
-
         double ticks = ((angle/360)*(robotwidth/2)*Math.PI*1440)/(wheelDiamater.in(Length.Unit.INCH)*Math.PI);
-
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightDrive.setTargetPosition((int)ticks);
         leftDrive.setTargetPosition((int)ticks);
-        rightDrive
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        }
 
+     public void stop () {
 
+        rightDrive.e
 
     }
 }
