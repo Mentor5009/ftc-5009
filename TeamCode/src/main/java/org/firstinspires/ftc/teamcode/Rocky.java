@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="K9bot: Telop Tank", group="K9bot")
+@TeleOp(name="Operation Mars-arossa", group="TeleOp")
 //@Disabled
 public class Rocky extends LinearOpMode {
 
@@ -69,7 +69,7 @@ public class Rocky extends LinearOpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");    //
+        telemetry.addData("Say", "Explorer, darling.");    //
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -79,13 +79,22 @@ public class Rocky extends LinearOpMode {
         while (opModeIsActive()) {
 
             // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-            left = -gamepad1.left_stick_y;
+            /*left = -gamepad1.left_stick_y;
             right = -gamepad1.right_stick_y;
+
+
             robot.leftDrive.setPower(left);
-            robot.rightDrive.setPower(right);
+            robot.rightDrive.setPower(right);*/
+
+            /*if(gamepad1.left_stick_y >= Math.abs(gamepad1.left_stick_x)) {
+                robot.move();
+            }*/
 
             if(gamepad1.b) robot.marker.setPosition(0.2);
-            else robot.marker.setPosition(0.61);
+            else robot.marker.setPosition(0.6);
+
+            left = 0;
+            right = 0;
 
             telemetry.addData("left",  "%.2f", left);
             telemetry.addData("right", "%.2f", right);

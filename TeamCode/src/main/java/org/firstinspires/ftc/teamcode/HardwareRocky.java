@@ -66,6 +66,7 @@ public class HardwareRocky
     public DcMotorEx leftDrive   = null;
     public DcMotorEx  rightDrive  = null;
     public Servo marker = null;
+    public double tpr;
 
     /* Local OpMode members. */
     HardwareMap hwMap  = null;
@@ -100,6 +101,8 @@ public class HardwareRocky
 
         //set position of servos
         marker.setPosition(.6);
+
+        tpr = leftDrive.getMotorType().getTicksPerRev();
     }
 
     void resetEncoders() {
@@ -122,21 +125,20 @@ public class HardwareRocky
         while(leftDrive.isBusy() || rightDrive.isBusy()) Thread.yield();
     }
 
-    public void pivot (){
+    public void pivot (double angle, double power){
 
-        double angle = 45;
         double robotwidth = 16.5;
-        double ticks = ((angle/360)*(robotwidth/2)*Math.PI*1440)/(wheelDiamater.in(Length.Unit.INCH)*Math.PI);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        double ticks = ((angle/360)*(robotwidth/2)*Math.PI*tpr)/(wheelDiamater.in(Length.Unit.INCH)*Math.PI);
+        rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightDrive.setPower(-power);
+        leftDrive.setPower(power);
         rightDrive.setTargetPosition((int)ticks);
         leftDrive.setTargetPosition((int)ticks);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        while(leftDrive.isBusy() || rightDrive.isBusy()) Thread.yield();
         }
 
-     public void stop () {
-
-        rightDrive.e
-
     }
-}
+
 

@@ -19,11 +19,30 @@ public class RockyAutonomous extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
-        robot.move(new Length(60,Length.Unit.INCH),.6);
+        robot.move(new Length(50,Length.Unit.INCH),.6);
 
-        robot
+        robot.marker.setPosition(0.2);
 
-        }
+        while (robot.marker.getPosition()>0.2) Thread.yield();
+
+        sleep(40);
+
+        robot.marker.setPosition(0.6);
+
+        sleep(40);
+
+        robot.pivot(135, .2);
+
+        sleep(40);
+
+        robot.move(new Length( 74,Length.Unit.INCH), .6);
+
+        sleep(40);
+
+
+
+
+    }
 
 
 
