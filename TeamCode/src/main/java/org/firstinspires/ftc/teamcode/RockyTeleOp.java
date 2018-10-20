@@ -51,12 +51,12 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="K9bot: Telop Tank", group="K9bot")
+@TeleOp(name="RockyTeleOp: Telop Tank", group="Rocky")
 //@Disabled
-public class Rocky extends LinearOpMode {
+public class RockyTeleOp extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareRocky robot = new HardwareRocky();     // Use a K9's hardware
+    HardwareRocky robot = new HardwareRocky();     // Use a Rocky's hardware
 
     @Override
     public void runOpMode() {
@@ -85,11 +85,20 @@ public class Rocky extends LinearOpMode {
             robot.rightDrive.setPower(right);
 
             if(gamepad1.b) robot.marker.setPosition(0.2);
-            else robot.marker.setPosition(0.61);
+            else robot.marker.setPosition(0.6);
+
+            if(gamepad1.right_bumper) robot.lift.setPower(-0.8);
+            else if(gamepad1.left_bumper) robot.lift.setPower(0.8);
+            else robot.lift.setPower(0);
+
+            robot.arm.setPower(gamepad1.left_trigger-gamepad1.right_trigger);
+
 
             telemetry.addData("left",  "%.2f", left);
             telemetry.addData("right", "%.2f", right);
             telemetry.addData("marker",robot.marker.getPosition());
+            telemetry.addData("lift", robot.lift.getPower());
+            telemetry.addData("arm", robot.arm.getPower());
             telemetry.update();
 
             // Pause for 40 mS each cycle = update 25 times a second.

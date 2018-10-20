@@ -63,6 +63,8 @@ public class HardwareRocky
     public DcMotorEx leftDrive   = null;
     public DcMotorEx  rightDrive  = null;
     public Servo marker = null;
+    public DcMotorEx lift = null;
+    public DcMotorEx arm = null;
 
     /* Local OpMode members. */
     HardwareMap hwMap  = null;
@@ -83,17 +85,22 @@ public class HardwareRocky
         // Define and Initialize Motors
         leftDrive = (DcMotorEx) hwMap.get(DcMotorEx.class, "leftDrive");
         rightDrive = (DcMotorEx) hwMap.get(DcMotorEx.class, "rightDrive");
-        marker = hwMap.get(Servo.class, "marker servo");
+        lift = (DcMotorEx) hwMap.get(DcMotorEx.class, "lift");
+        arm = (DcMotorEx) hwMap.get(DcMotorEx.class, "arm");
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
         leftDrive.setPower(0);
         rightDrive.setPower(0);
+        lift.setPower(0);
+        arm.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
         //set position of servos
@@ -105,6 +112,10 @@ public class HardwareRocky
         rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void move(Length d, double power) {
@@ -113,11 +124,26 @@ public class HardwareRocky
         resetEncoders();
         leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         leftDrive.setPower(power);
         rightDrive.setPower(power);
+        lift.setPower(power);
+        arm.setPower(power);
         leftDrive.setTargetPosition((int)ticks);
         rightDrive.setTargetPosition((int)ticks);
-        while(leftDrive.isBusy() || rightDrive.isBusy()) Thread.yield();
+        lift.setTargetPosition((int)ticks);
+        arm.setTargetPosition((int)ticks);
+        while(leftDrive.isBusy() || rightDrive.isBusy() || lift.isBusy() || arm.isBusy()) Thread.yield();
     }
-}
+
+    public void Pivot() {
+
+        double ticks = 
+
+
+    }
+};
+
+
 

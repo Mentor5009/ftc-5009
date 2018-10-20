@@ -15,7 +15,22 @@ public class RockyAutonomous extends LinearOpMode {
 
         robot.init(hardwareMap);
         waitForStart();
-        robot.move(new Length(60,Length.Unit.INCH),.6);
+        robot.move(new Length(10,Length.Unit.INCH),.6);
+
+        //Servo "marker" drops marker
+        robot.marker.setPosition(0.3);
+
+        //Servo "marker" goes back to up
+
+        robot.marker.setPosition(0.6);
+
+        //Robot right pivots towards crater
+
+
+
+
+
+
 
 
     }
