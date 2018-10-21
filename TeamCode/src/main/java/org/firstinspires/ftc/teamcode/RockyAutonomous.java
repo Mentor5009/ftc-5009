@@ -9,8 +9,6 @@ public class RockyAutonomous extends LinearOpMode {
     HardwareRocky robot;
     private ElapsedTime runtime = new ElapsedTime();
 
-
-
     @Override
     public void runOpMode() throws InterruptedException {
         robot = new HardwareRocky();
@@ -38,12 +36,5 @@ public class RockyAutonomous extends LinearOpMode {
         robot.move(new Length( 74,Length.Unit.INCH), .6);
 
         sleep(40);
-
-
-
-
     }
-
-
-
 }

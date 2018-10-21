@@ -51,12 +51,12 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Operation Mars-arossa", group="TeleOp")
+@TeleOp(name="RockyTeleOp: Telop Tank", group="Rocky")
 //@Disabled
-public class Rocky extends LinearOpMode {
+public class RockyTeleOp extends LinearOpMode {
 
     /* Declare OpMode members. */
-    HardwareRocky robot = new HardwareRocky();     // Use a K9's hardware
+    HardwareRocky robot = new HardwareRocky();     // Use a Rocky's hardware
 
     @Override
     public void runOpMode() {
@@ -69,7 +69,7 @@ public class Rocky extends LinearOpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Explorer, darling.");    //
+        telemetry.addData("Say", "Hello Driver");    //
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -79,26 +79,26 @@ public class Rocky extends LinearOpMode {
         while (opModeIsActive()) {
 
             // Run wheels in tank mode (note: The joystick goes negative when pushed forwards, so negate it)
-            /*left = -gamepad1.left_stick_y;
+            left = -gamepad1.left_stick_y;
             right = -gamepad1.right_stick_y;
-
-
             robot.leftDrive.setPower(left);
-            robot.rightDrive.setPower(right);*/
-
-            /*if(gamepad1.left_stick_y >= Math.abs(gamepad1.left_stick_x)) {
-                robot.move();
-            }*/
+            robot.rightDrive.setPower(right);
 
             if(gamepad1.b) robot.marker.setPosition(0.2);
             else robot.marker.setPosition(0.6);
 
-            left = 0;
-            right = 0;
+            if(gamepad1.right_bumper) robot.lift.setPower(-0.8);
+            else if(gamepad1.left_bumper) robot.lift.setPower(0.8);
+            else robot.lift.setPower(0);
+
+            robot.arm.setPower(gamepad1.left_trigger-gamepad1.right_trigger);
+
 
             telemetry.addData("left",  "%.2f", left);
             telemetry.addData("right", "%.2f", right);
             telemetry.addData("marker",robot.marker.getPosition());
+            telemetry.addData("lift", robot.lift.getPower());
+            telemetry.addData("arm", robot.arm.getPower());
             telemetry.update();
 
             // Pause for 40 mS each cycle = update 25 times a second.
