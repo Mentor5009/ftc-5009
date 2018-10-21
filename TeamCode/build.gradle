@@ -14,3 +14,9 @@ dependencies {
     implementation project(':openCVLibrary3')
     implementation project(':DogeCV')
 }
+allprojects {
+    repositories {
+        google() // and here
+        jcenter()
+    }
+}
