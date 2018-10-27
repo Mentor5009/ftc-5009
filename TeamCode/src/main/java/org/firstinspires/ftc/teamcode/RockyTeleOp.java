@@ -87,8 +87,8 @@ public class RockyTeleOp extends LinearOpMode {
             if(gamepad1.b) robot.marker.setPosition(0.2);
             else robot.marker.setPosition(0.6);
 
-            if(gamepad1.right_bumper) robot.lift.setPower(-0.8);
-            else if(gamepad1.left_bumper) robot.lift.setPower(0.8);
+            if(gamepad1.right_bumper) robot.lift.setPower(-1.0);
+            else if(gamepad1.left_bumper) robot.lift.setPower(1.0);
             else robot.lift.setPower(0);
 
             robot.arm.setPower(gamepad1.left_trigger-gamepad1.right_trigger);
