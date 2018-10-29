@@ -148,7 +148,7 @@ public class HardwareRocky {
 //Robot pivots towards the crater from the depot
         public void pivot ( double angle, double power){
             double rads = angle*Math.PI/180;
-            double robotwidth = 16.5;
+            double robotwidth = 17;
             double ticks = inchesToTicks(new Length(.5 * rads * robotwidth,Length.Unit.INCH));
             resetEncoders();
             rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -159,10 +159,10 @@ public class HardwareRocky {
             leftDrive.setPower(power);
             while (Math.abs(leftDrive.getCurrentPosition()) < Math.abs(ticks) || Math.abs(rightDrive.getCurrentPosition()) < Math.abs(ticks))
             {
-                leftDrive.setPower(0);
-                rightDrive.setPower(0);
-            }
 
+            }
+            leftDrive.setPower(0);
+            rightDrive.setPower(0);
 
         }
     public double inchesToTicks(Length d) {
