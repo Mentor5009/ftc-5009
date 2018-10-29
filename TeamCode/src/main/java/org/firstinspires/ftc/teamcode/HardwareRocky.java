@@ -159,10 +159,10 @@ public class HardwareRocky {
             leftDrive.setPower(power);
             while (Math.abs(leftDrive.getCurrentPosition()) < Math.abs(ticks) || Math.abs(rightDrive.getCurrentPosition()) < Math.abs(ticks))
             {
-
+                leftDrive.setPower(0);
+                rightDrive.setPower(0);
             }
-            leftDrive.setPower(0);
-            rightDrive.setPower(0);
+
 
         }
     public double inchesToTicks(Length d) {
